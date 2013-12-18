@@ -23,7 +23,7 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.cookieParser());
-  app.use(express.session({  secret: config.EXPRESS_SESSION_SECRET }));
+  app.use(express.cookieSession({  secret: config.EXPRESS_SESSION_SECRET, cookie: { maxAge: 60 * 60 * 1000 } }));
   app.use(function(req, res, next){
       res.locals.user = req.session.user;
       next();
@@ -33,8 +33,10 @@ app.configure(function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-var _tumblrConsumerKey = config.TUMBLR_CONSUMER_KEY;
-var _tumblrConsumerSecret = config.TUMBLR_CONSUMER_SECRET;
+/** BEGIN OAUTH **/
+// TODO: Move into module.
+var _tumblrConsumerKey = config.TUMBLR_CONSUMER_KEY,
+    _tumblrConsumerSecret = config.TUMBLR_CONSUMER_SECRET;
 
 function consumer() {
   return new oauth.OAuth(
@@ -64,7 +66,6 @@ app.get('/sessions/connect', function(req, res){
   });
 });
 
-
 app.get('/sessions/callback', function(req, res){
   sys.puts("oauthRequestToken>>"+req.session.oauthRequestToken);
   sys.puts("oauthRequestTokenSecret>>"+req.session.oauthRequestTokenSecret);
@@ -86,13 +87,31 @@ app.get('/sessions/callback', function(req, res){
         if (error) {
           res.send("Error getting twitter screen name : " + sys.inspect(error), 500);
         } else {
-          res.send(sys.inspect(data));
+          res.redirect('/');
         }  
       });  
     }
   });
 });
+/** END OAUTH **/
 
+/** BEGIN AUTHENTICATED TUMBLR API CALLS */
+
+app.get('/tumblr/user/info', function(req, res){
+  consumer().get("http://api.tumblr.com/v2/user/info/", 
+                  req.session.oauthAccessToken, 
+                  req.session.oauthAccessTokenSecret, 
+                  function (error, data, response) {  //callback when the data is ready
+    if (error) {
+      res.send(500, { error: 'request failed' });
+    } else {
+      res.set('Content-Type', 'application/json');
+      res.send(data);
+    }  
+  });
+});
+
+/** END TUMBLR API **/
 
 // set logging
 app.use(function(req, res, next){
@@ -105,8 +124,12 @@ app.use(express.static( path.join( __dirname, '../app') ));
 app.use(express.static( path.join( __dirname, '../.tmp') ));
 
 
-// route index.html
+// route to index.html
 app.get('/', function(req, res){
+  if (!req.session.oauthAccessToken) {
+    console.log('no access token. redirecting to oauth');
+    res.redirect('/sessions/connect');
+  }
   res.sendfile( path.join( __dirname, '../app/index.html' ) );
 });
 
@@ -114,58 +137,5 @@ app.get('/', function(req, res){
 //http://www.tumblr.com/docs/en/api/v2#posting
 
 app.listen(parseInt(config.PORT, 10));
-
-
-// start mongoose
-// mongoose.connect('mongodb://localhost/sit');
-// var db = mongoose.connection;
-
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db.once('open', function callback () {
-
-// 	/* test schema */
-//     var testSchema = new mongoose.Schema({
-//         test: String
-//     });
-
-//     var Test = mongoose.model( 'test', testSchema );
-
-//     /* set Baucis */
-//     baucis.rest({
-//         singular: 'test'
-//     });
-
-// 	var app = express();
-
-// 	app.configure(function(){
-// 	    app.set('port', 9000);
-
-// 	    app.set('view engine', 'handlebars');
-// 	    app.set('views', __dirname + '../app/scripts/views');
-// 	});
-
-//     app.use('/api/v1', baucis());
-
-// 	// simple log
-// 	app.use(function(req, res, next){
-// 	  console.log('%s %s', req.method, req.url);
-// 	  next();
-// 	});
-
-// 	// mount static
-// 	app.use(express.static( path.join( __dirname, '../app') ));
-// 	app.use(express.static( path.join( __dirname, '../.tmp') ));
-
-
-// 	// route index.html
-// 	app.get('/', function(req, res){
-// 	  res.sendfile( path.join( __dirname, '../app/index.html' ) );
-// 	});
-
-// 	// start server
-// 	http.createServer(app).listen(app.get('port'), function(){
-// 	    console.log('Express App started!');
-// 	});
-// });
 
 
