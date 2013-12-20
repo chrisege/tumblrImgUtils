@@ -113,6 +113,21 @@ app.get('/tumblr/user/info', function(req, res){
   });
 });
 
+// todo: handle offset/pagination, etc.
+app.get('/tumblr/user/dashboard', function(req, res){
+    consumer().get("http://api.tumblr.com/v2/user/dashboard/", 
+                  req.session.oauthAccessToken, 
+                  req.session.oauthAccessTokenSecret, 
+                  function (error, data, response) {  //callback when the data is ready
+    if (error) {
+      res.send(500, { error: 'request failed' });
+    } else {
+      res.set('Content-Type', 'application/json');
+      res.send(data);
+    }  
+  });
+});
+
 /** END TUMBLR API **/
 
 // set logging

@@ -16,6 +16,13 @@ function( Backbone, Communicator, Welcome_tmpl ) {
 				return this.$el.html('hello');
 			}
 		}),
+		DashboardCollection = Backbone.Collection.extend({
+			url: '/tumblr/user/dashboard',
+			parse: function(response){
+				return response.response.posts;
+			}
+		}),
+		dashboardCollection = new DashboardCollection(),
 		testView = new TestView();
 
 	/* Add application regions here */
@@ -25,6 +32,7 @@ function( Backbone, Communicator, Welcome_tmpl ) {
 
 	/* Add initializers here */
 	App.addInitializer( function () {
+		dashboardCollection.fetch().done(function(){debugger;});
 		document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
 		Communicator.mediator.trigger("APP:START");
 		App.mainRegion.show(testView);
