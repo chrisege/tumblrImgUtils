@@ -51,8 +51,10 @@ function consumer() {
 }
 
 app.get('/sessions/connect', function(req, res){
+  console.log('/sessions/connect called');
   consumer().getOAuthRequestToken(function(error, oauthToken, oauthTokenSecret, results){ //callback with request token
     if (error) {
+      console.log("Error getting OAuth request token");
       res.send("Error getting OAuth request token : " + sys.inspect(error), 500);
     } else { 
       sys.puts("results>>"+sys.inspect(results));
@@ -126,16 +128,21 @@ app.use(express.static( path.join( __dirname, '../.tmp') ));
 
 // route to index.html
 app.get('/', function(req, res){
-  if (!req.session.oauthAccessToken) {
-    console.log('no access token. redirecting to oauth');
-    res.redirect('/sessions/connect');
-  }
+  // redirect doesn't work?
+  // if (!req.session.oauthAccessToken) {
+  //   console.log('no access token. redirecting to oauth');
+  //   res.redirect('/sessions/connect');
+  // }
   res.sendfile( path.join( __dirname, '../app/index.html' ) );
 });
 
 //http://www.flickr.com/services/api/flickr.photos.search.html
 //http://www.tumblr.com/docs/en/api/v2#posting
 
+// Limit 10 results per search. 100 searches per day.
+// Can sign up for more at $5 per 1000 queries: https://developers.google.com/custom-search/json-api/v1/overview 
+// https://www.googleapis.com/customsearch/v1?q=lore&cx=006384921217615006859%3Ablvjupkjiuu&num=10&searchType=image&key=***
+// https://cloud.google.com/console?redirected=true#/project/apps~lordsoflore-666/apiui/api/customsearch/method/search.cse.list
 app.listen(parseInt(config.PORT, 10));
 
 

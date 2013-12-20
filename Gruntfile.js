@@ -34,22 +34,22 @@ module.exports = function (grunt) {
                 tasks: ['compass']
             },
             
-            livereload: {
-                files: [
+            // livereload: {
+            //     files: [
                     
-                    '<%= yeoman.app %>/*.html',
-                    '{.tmp,<%= yeoman.app %>}/styles/{,**/}*.css',
-                    '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
-                    '{.tmp,<%= yeoman.app %>}/templates/{,**/}*.hbs',
-                    '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
+            //         '<%= yeoman.app %>/*.html',
+            //         '{.tmp,<%= yeoman.app %>}/styles/{,**/}*.css',
+            //         '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
+            //         '{.tmp,<%= yeoman.app %>}/templates/{,**/}*.hbs',
+            //         '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
                     
-                    'test/spec/{,**/}*.js'
-                ],
-                tasks: ['exec'],
-                options: {
-                    livereload: true
-                }
-            }
+            //         'test/spec/{,**/}*.js'
+            //     ],
+            //     tasks: ['exec'],
+            //     options: {
+            //         livereload: true
+            //     }
+            // }
             /* not used at the moment
             handlebars: {
                 files: [
@@ -60,22 +60,22 @@ module.exports = function (grunt) {
         },
 
         // testing server
-        connect: {
-            testserver: {
-                options: {
-                    port: 1234,
-                    base: '.'
-                }
-            }
-        },
+        // connect: {
+        //     testserver: {
+        //         options: {
+        //             port: 1234,
+        //             base: '.'
+        //         }
+        //     }
+        // },
 
         // mocha command
-        exec: {
-            mocha: {
-                command: 'mocha-phantomjs http://localhost:<%= connect.testserver.options.port %>/test',
-                stdout: true
-            }
-        },
+        // exec: {
+        //     mocha: {
+        //         command: 'mocha-phantomjs http://localhost:<%= connect.testserver.options.port %>/test',
+        //         stdout: true
+        //     }
+        // },
 
         
         // express app
@@ -295,9 +295,9 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'compass:server',
-            'connect:testserver',
+            // 'connect:testserver',
             'express:dev',
-            'exec',
+            // 'exec',
             'open',
             'watch'
         ]);
