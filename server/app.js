@@ -100,7 +100,8 @@ app.get('/sessions/callback', function(req, res){
 /** BEGIN AUTHENTICATED TUMBLR API CALLS */
 
 app.get('/tumblr/user/info', function(req, res){
-  consumer().get("http://api.tumblr.com/v2/user/info/", 
+  var queryString = req.originalUrl.replace('/tumblr/user/info', '');
+  consumer().get("http://api.tumblr.com/v2/user/info/"+queryString, 
                   req.session.oauthAccessToken, 
                   req.session.oauthAccessTokenSecret, 
                   function (error, data, response) {  //callback when the data is ready
@@ -115,12 +116,15 @@ app.get('/tumblr/user/info', function(req, res){
 
 // todo: handle offset/pagination, etc.
 app.get('/tumblr/user/dashboard', function(req, res){
-    consumer().get("http://api.tumblr.com/v2/user/dashboard/", 
+    var queryString = req.originalUrl.replace('/tumblr/user/dashboard', '');
+    console.log(queryString);
+    consumer().get("http://api.tumblr.com/v2/user/dashboard/"+queryString, 
                   req.session.oauthAccessToken, 
                   req.session.oauthAccessTokenSecret, 
                   function (error, data, response) {  //callback when the data is ready
     if (error) {
-      res.send(500, { error: 'request failed' });
+      // console.log(error);
+      res.send(error.statusCode, error.data.meta);
     } else {
       res.set('Content-Type', 'application/json');
       res.send(data);
@@ -131,10 +135,10 @@ app.get('/tumblr/user/dashboard', function(req, res){
 /** END TUMBLR API **/
 
 // set logging
-app.use(function(req, res, next){
-  console.log('%s %s', req.method, req.url);
-  next();
-});
+// app.use(function(req, res, next){
+//   console.log('%s %s', req.method, req.url);
+//   next();
+// });
 
 // mount static
 app.use(express.static( path.join( __dirname, '../app') ));

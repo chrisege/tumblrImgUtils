@@ -8,7 +8,7 @@ function( Backbone, DashboardModel ) {
 	/* Return a collection class definition */
 	return Backbone.Collection.extend({
 		initialize: function(models, options) {
-			this.postType = options && options.postType || 'image'; // might be problematic to default to image. doing it for now anyway.
+			// this.postType = options && options.postType || 'image'; // might be problematic to default to image. doing it for now anyway.
 			this.on('fetch', this.updateSinceId, this);
 		},
 
@@ -17,7 +17,7 @@ function( Backbone, DashboardModel ) {
 
 			if (this.postType) {params.data.type = this.postType;}
 			if (this.sinceId)  {params.data.since_id = this.sinceId}
-
+			// params.data.limit = 10;
 			return params;
 		},
 
