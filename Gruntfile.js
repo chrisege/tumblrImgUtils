@@ -42,29 +42,6 @@ module.exports = function (grunt) {
                 }
             }
             
-            // livereload: {
-            //     files: [
-                    
-            //         '<%= yeoman.app %>/*.html',
-            //         '{.tmp,<%= yeoman.app %>}/styles/{,**/}*.css',
-            //         '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
-            //         '{.tmp,<%= yeoman.app %>}/templates/{,**/}*.hbs',
-            //         '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    
-            //         'test/spec/{,**/}*.js'
-            //     ],
-            //     tasks: ['exec'],
-            //     options: {
-            //         livereload: true
-            //     }
-            // }
-            /* not used at the moment
-            handlebars: {
-                files: [
-                    '<%= yeoman.app %>/templates/*.hbs'
-                ],
-                tasks: ['handlebars']
-            }*/
         },
 
         // testing server
