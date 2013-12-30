@@ -19,7 +19,7 @@ module.exports = function(app){
 				"HMAC-SHA1"
 			);
     	},
-
+    	
     	// start the oauth process
     	oauthConnect = function(req, res) {
 			console.log('/sessions/connect called');

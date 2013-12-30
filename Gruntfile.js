@@ -33,6 +33,14 @@ module.exports = function (grunt) {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
             },
+
+            express: {
+                files: ['server/**/*.js'],
+                tasks: ['express:dev'],
+                options: {
+                    spawn: false
+                }
+            }
             
             // livereload: {
             //     files: [
