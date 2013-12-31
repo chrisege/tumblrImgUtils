@@ -25,6 +25,17 @@ require.config({
         backbone: '../bower_components/backbone-amd/backbone',
         underscore: '../bower_components/underscore-amd/underscore',
 
+        // masonry and all its dependencies
+        masonry: '../bower_components/masonry/masonry',
+        outlayer: '../bower_components/outlayer',
+        'get-size': '../bower_components/get-size',
+        'get-style-property': '../bower_components/get-style-property',
+        eventie: '../bower_components/eventie',
+        'doc-ready': '../bower_components/doc-ready',
+        'matches-selector': '../bower_components/matches-selector',
+        eventEmitter: '../bower_components/eventEmitter',
+
+
         /* alias all marionette libs */
         'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette',
         'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr',

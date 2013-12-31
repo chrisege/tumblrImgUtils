@@ -1,18 +1,21 @@
 define([
 	'backbone',
 	'communicator',
-	'hbs!tmpl/layout/mainLayout_tmpl'
+	'hbs!tmpl/layout/mainLayout_tmpl',
+	'collections/DashboardCollection',
+	'views/collection/dashboardView'
 ],
 
-function( Backbone, Communicator, mainLayout ) {
+function( Backbone, Communicator, mainLayout, DashboardCollection, DashboardView ) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application(),
-		mainLayout = mainLayout;
+		mainLayout = mainLayout,
 
-		// dashboardCollection = new DashboardCollection;
-	
-		// dashboardCollection.fetch();
+		dashboardCollection = new DashboardCollection(),
+		dashboardView = new DashboardView({collection: dashboardCollection});
+
+	dashboardCollection.fetch();
 
 	/* Add application regions here */
 	App.addRegions({
@@ -20,10 +23,12 @@ function( Backbone, Communicator, mainLayout ) {
 		main: "#main"
 	});
 
+
 	/* Add initializers here */
 	App.addInitializer( function () {
 		document.body.innerHTML = mainLayout();
 		Communicator.mediator.trigger("APP:START");
+		App.main.show(dashboardView);
 	});
 
 	return App;

@@ -31,6 +31,10 @@ function( Backbone, DashboardModel ) {
 			Backbone.Collection.prototype.fetch.call(this, this.buildGetParams());
 		},
 
+		parse: function(data){
+			return data.response.posts;
+		},
+
 		model: DashboardModel
 		
 	});

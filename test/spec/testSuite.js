@@ -8,6 +8,8 @@ define(function() {
 		'spec/exampleTest.js',
 		'spec/models/DashboardModel.js',
 		'spec/models/TumblrUserInfo.js',
+		'spec/views/collection/dashboardView.js',
+		'spec/views/item/dashboardItemView.js',
 		'spec/views/layout/mainLayout.js'
 		]
 	};
