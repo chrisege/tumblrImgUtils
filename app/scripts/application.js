@@ -1,31 +1,29 @@
 define([
 	'backbone',
 	'communicator',
-	'hbs!tmpl/welcome',
-	'collections/DashboardCollection'
+	'hbs!tmpl/layout/mainLayout_tmpl'
 ],
 
-function( Backbone, Communicator, Welcome_tmpl, DashboardCollection ) {
+function( Backbone, Communicator, mainLayout ) {
     'use strict';
 
-	var welcomeTmpl = Welcome_tmpl;
-
 	var App = new Backbone.Marionette.Application(),
-		dashboardCollection = new DashboardCollection;
+		mainLayout = mainLayout;
+
+		// dashboardCollection = new DashboardCollection;
 	
-		dashboardCollection.fetch();
+		// dashboardCollection.fetch();
 
 	/* Add application regions here */
 	App.addRegions({
-		mainRegion: '.container'
+		topbar: ".top-bar-section",
+		main: "#main"
 	});
 
 	/* Add initializers here */
 	App.addInitializer( function () {
-		// dashboardCollection.fetch().done(function(){debugger;});
-		document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
+		document.body.innerHTML = mainLayout();
 		Communicator.mediator.trigger("APP:START");
-		// App.mainRegion.show(testView);
 	});
 
 	return App;
