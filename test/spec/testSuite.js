@@ -9,6 +9,8 @@ define(function() {
 		'spec/models/DashboardModel.js',
 		'spec/models/TumblrUserInfo.js',
 		'spec/views/collection/dashboardView.js',
+		'spec/views/composite/DropdownView.js',
+		'spec/views/item/DropdownItemView.js',
 		'spec/views/item/dashboardItemView.js',
 		'spec/views/layout/mainLayout.js'
 		]
