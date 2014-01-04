@@ -17,6 +17,9 @@ require.config({
         foundation: {
             deps: ['jquery'],
             exports: 'jquery'
+        },
+        freewall: {
+            deps: ['jquery']
         }
     },
 
@@ -25,15 +28,15 @@ require.config({
         backbone: '../bower_components/backbone-amd/backbone',
         underscore: '../bower_components/underscore-amd/underscore',
 
-        // masonry and all its dependencies
-        masonry: '../bower_components/masonry/masonry',
-        outlayer: '../bower_components/outlayer',
-        'get-size': '../bower_components/get-size',
-        'get-style-property': '../bower_components/get-style-property',
-        eventie: '../bower_components/eventie',
-        'doc-ready': '../bower_components/doc-ready',
-        'matches-selector': '../bower_components/matches-selector',
-        eventEmitter: '../bower_components/eventEmitter',
+        // packery and all its dependencies
+        'packery-pkgd': '../bower_components/packery-pkgd/index',
+        // outlayer: '../bower_components/outlayer',
+        // 'get-size': '../bower_components/get-size',
+        // 'get-style-property': '../bower_components/get-style-property',
+        // eventie: '../bower_components/eventie',
+        // 'doc-ready': '../bower_components/doc-ready',
+        // 'matches-selector': '../bower_components/matches-selector',
+        // eventEmitter: '../bower_components/eventEmitter',
 
 
         /* alias all marionette libs */
@@ -41,8 +44,9 @@ require.config({
         'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
         'backbone.babysitter': '../bower_components/backbone.babysitter/lib/amd/backbone.babysitter',
 
-        /* alias the bootstrap js lib */
         foundation: '../bower_components/foundation/js/foundation',
+
+        freewall: '../bower_components/freewall/freewall',
 
         /* Alias text.js for template loading and shortcut the templates dir to tmpl */
         text: '../bower_components/requirejs-text/text',

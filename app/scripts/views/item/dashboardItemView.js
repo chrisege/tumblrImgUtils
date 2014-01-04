@@ -8,6 +8,7 @@ function( Backbone, DashboarditemviewTmpl  ) {
 	/* Return a ItemView class definition */
 	return Backbone.Marionette.ItemView.extend({
 
+		tagName: 'li',
 		className: 'dashboard-item',
 		
 		initialize: function() {

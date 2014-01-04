@@ -10,7 +10,11 @@ function( Backbone, Dropdownitemview, DropdownviewTmpl  ) {
 	return Backbone.Marionette.CompositeView.extend({
 
 		initialize: function() {
+			var self = this;
 			console.log("initialize a Dropdownview CompositeView");
+			this.on('show', function(){
+				self.$el.foundation();
+			});
 		},
 		
     	itemView: Dropdownitemview,
@@ -29,7 +33,7 @@ function( Backbone, Dropdownitemview, DropdownviewTmpl  ) {
 
 		/* on render callback */
 		onRender: function() {
-			$(document).foundation();
+			// $(document).foundation('dropdown', 'init');
 		}
 	});
 
