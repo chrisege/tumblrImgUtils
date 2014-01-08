@@ -3,12 +3,13 @@ define([
 	'communicator',
 	'hbs!tmpl/layout/mainLayout_tmpl',
 	'collections/DashboardCollection',
+	'collections/TumblrBlogCollection',
 	'models/TumblrUserInfo',
 	'views/collection/dashboardView',
 	'views/composite/DropdownView'
 ],
 
-function( Backbone, Communicator, mainLayout, DashboardCollection, TumblrUserInfo, DashboardView, DropdownView ) {
+function( Backbone, Communicator, mainLayout, DashboardCollection, TumblrBlogCollection, TumblrUserInfo, DashboardView, DropdownView ) {
     'use strict';
 
 	var App = new Backbone.Marionette.Application(),
@@ -36,7 +37,7 @@ function( Backbone, Communicator, mainLayout, DashboardCollection, TumblrUserInf
 		App.main.show(dashboardView);
 
 		Communicator.mediator.on('initBlogCollection', function(blogs){
-			var blogCollection = new Backbone.Collection(blogs),
+			var blogCollection = new TumblrBlogCollection(blogs),
 				dropdownView = new DropdownView({
 					collection: blogCollection,
 					tagName: 'li',

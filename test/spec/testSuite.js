@@ -7,6 +7,7 @@ define(function() {
 		'spec/collections/TumblrBlogCollection.js',
 		'spec/exampleTest.js',
 		'spec/models/DashboardModel.js',
+		'spec/models/TumblrBlogModel.js',
 		'spec/models/TumblrUserInfo.js',
 		'spec/views/collection/dashboardView.js',
 		'spec/views/composite/DropdownView.js',

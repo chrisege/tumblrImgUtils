@@ -12,6 +12,9 @@ function( Backbone, Dropdownitemview, DropdownviewTmpl  ) {
 		initialize: function() {
 			var self = this;
 			console.log("initialize a Dropdownview CompositeView");
+
+			this.listenTo(this.collection, 'change', this.renderAndShow);
+
 			this.on('show', function(){
 				self.$el.foundation();
 			});
@@ -21,6 +24,16 @@ function( Backbone, Dropdownitemview, DropdownviewTmpl  ) {
     	
     	template: DropdownviewTmpl,
     	
+    	serializeData: function(){
+    		var active = this.collection.getActive();
+
+    		return {active: active.get('title')};
+    	},
+
+    	renderAndShow: function(){
+    		this.render();
+    		this.trigger('show');
+    	},
 
     	/* ui selector cache */
     	ui: {},

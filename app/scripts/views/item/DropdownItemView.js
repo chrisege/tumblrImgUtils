@@ -21,7 +21,13 @@ function( Backbone, DropdownitemviewTmpl  ) {
     	ui: {},
 
 		/* Ui events hash */
-		events: {},
+		events: {
+			'click': 'setActive'
+		},
+
+		setActive: function(){
+			this.model.setActive();
+		},
 
 		/* on render callback */
 		onRender: function() {}
