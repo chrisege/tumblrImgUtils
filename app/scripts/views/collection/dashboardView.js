@@ -1,13 +1,14 @@
 define([
 	'backbone',
 	'views/item/dashboardItemView',
-	'freewall'
+	'freewall',
+	'hbs!tmpl/composite/DashboardView_tmpl'
 ],
-function( Backbone, Dashboarditemview, freewall ) {
+function( Backbone, Dashboarditemview, freewall, DashboardTmpl ) {
     'use strict';
 
 	/* Return a ItemView class definition */
-	return Backbone.Marionette.CollectionView.extend({
+	return Backbone.Marionette.CompositeView.extend({
 
 		tagName: 'ul',
 		className: 'small-block-grid-3',
@@ -18,13 +19,22 @@ function( Backbone, Dashboarditemview, freewall ) {
 		},
 		
     	itemView: Dashboarditemview,
-    	
+
+    	itemViewContainer: 'ul',
+
+    	template: DashboardTmpl,
 
     	/* ui selector cache */
     	ui: {},
 
 		/* Ui events hash */
-		events: {},
+		events: {
+			'click .load-more': 'loadMore'
+		},
+
+		loadMore: function(){
+			this.collection.loadMore();
+		},
 
 		/* on render callback */
 		onShow: function() {
